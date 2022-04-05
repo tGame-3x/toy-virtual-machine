@@ -1,5 +1,4 @@
 #include <iostream>
-#include <sys/termios.h>
 #include <unistd.h>
 
 #ifndef INTERUPT_HELP
@@ -7,7 +6,7 @@
 
 void restore_input_buffering()
 {
-    tcsetattr(STDIN_FILENO, TCSANOW, &original_tio);
+    // tcsetattr(STDIN_FILENO, TCSANOW, &original_tio);
 }
 
 void handle_interrupt(int signal)

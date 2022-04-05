@@ -26,6 +26,8 @@ private:
 public:
     JRegister(/* args */);
     ~JRegister();
+    void setRegister(uint32_t index, uint16_t flag);
+    uint16_t *getRegister();
 };
 
 JRegister::JRegister(/* args */)
@@ -34,4 +36,14 @@ JRegister::JRegister(/* args */)
 
 JRegister::~JRegister()
 {
+}
+
+void JRegister::setRegister(uint32_t index, uint16_t flag)
+{
+    this->reg[index] = flag;
+}
+
+uint16_t *JRegister::getRegister()
+{
+    return this->reg;
 }

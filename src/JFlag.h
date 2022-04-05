@@ -1,6 +1,6 @@
 #include "../utils/type_definition.h"
 
-enum class FLAG_OP
+enum FLAG_OP : uint16_t
 {
     FL_POS = 1 << 0, /* P */
     FL_ZRO = 1 << 1, /* Z */

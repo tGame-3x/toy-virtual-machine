@@ -1,6 +1,6 @@
 #ifndef OPTION_CODE_DEFINITION
 #define OPTION_CODE_DEFINITION
-enum class OPTION
+enum OPTION : int
 {
     OP_BR = 0, /* branch */
     OP_ADD,    /* add  */
