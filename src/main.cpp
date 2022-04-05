@@ -5,6 +5,7 @@
 #include <string.h>
 #include <bitset>
 #include <windows.h>
+#include <conio.h>
 
 #include "JMemory.h"
 #include "JRegister.h"
@@ -307,7 +308,8 @@ int main(int argc, const char *argv[])
             {
             case TRAP_GETC:
                 /* read a single ASCII char */
-                reg[R_R0] = (uint16_t)getchar();
+                // reg[R_R0] = (uint16_t)getchar();
+                reg[R_R0] = (uint16_t)getch();
                 update_flags(R_R0);
                 break;
             case TRAP_OUT:
