@@ -3,12 +3,21 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <bitset>
+#include <windows.h>
+
 #include "JMemory.h"
 #include "JRegister.h"
 #include "JFlag.h"
 #include "../utils/file_helper.h"
 #include "../utils/interupt_helper.h"
 #include "../utils/option_code.h"
+
+using namespace std;
+#define KEY_DOWN(VK_NONAME) ((GetAsyncKeyState(VK_NONAME) & 0x8000) ? 1 : 0)
+
+bitset<30> down; //记录当前键盘按下状态
+bitset<30> pre;  //记录前一时刻键盘按下状态
 
 enum
 {
@@ -28,6 +37,7 @@ enum
 
 uint16_t *memory;
 uint16_t *reg;
+
 uint16_t check_key()
 {
     // for linux keyboard listener
@@ -39,6 +49,22 @@ uint16_t check_key()
     // timeout.tv_sec = 0;
     // timeout.tv_usec = 0;
     // return select(1, &readfds, NULL, NULL, &timeout) != 0;
+
+    pre = down;
+    for (int i = 0; i < 26; i++)
+    {
+        char c = (char('A' + i));
+        if (!KEY_DOWN(c))
+            down[c - 'A'] = 0;
+        else
+            down[c - 'A'] = 1;
+    }
+    if (down != pre)
+    {
+        system("cls"); //清屏
+        printf("\n");
+    }
+    return down != pre;
 }
 
 uint16_t mem_read(uint16_t address)
@@ -348,5 +374,4 @@ int main(int argc, const char *argv[])
     // {
     //     printf("%x \n", j_memory.getMemory()[i]);
     // }
-    printf("lc3 vm close ...\n");
 }

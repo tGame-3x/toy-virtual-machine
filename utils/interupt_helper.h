@@ -12,7 +12,7 @@ void restore_input_buffering()
 void handle_interrupt(int signal)
 {
     restore_input_buffering();
-    printf("\n");
+    printf("lc3 vm close ...\n");
     exit(-2);
 }
 #endif
