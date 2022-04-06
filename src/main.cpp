@@ -39,6 +39,32 @@ enum
 uint16_t *memory;
 uint16_t *reg;
 
+const int blue = 0, yellow = 1, red = 2, green = 3, purple = 4, white = 5; //颜色常量
+void color(int c)
+{
+    switch (c)
+    {
+    case red:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
+        break; //红色原色
+    case green:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
+        break; //绿色原色
+    case yellow:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN);
+        break; //黄色：红色和绿色相加
+    case blue:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
+        break; //蓝色原色
+    case white:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        break; //白色：三原色相加
+    case purple:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_BLUE);
+        break; //紫色：红色和蓝色相加
+    }
+}
+
 uint16_t check_key()
 {
     // for linux keyboard listener
@@ -323,6 +349,12 @@ int main(int argc, const char *argv[])
                 while (*c)
                 {
                     putc((char)*c, stdout);
+                    if (*c >= 48 && *c <= 57)
+                    {
+                        color((*c) % 6);
+                        fflush(stdout);
+                        // color(white);
+                    }
                     ++c;
                 }
                 fflush(stdout);
